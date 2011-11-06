@@ -7,45 +7,121 @@ void testApp::setup()
     ofSetFrameRate(60);
     ofEnableSmoothing();
     
-    for (int i = 0; i < NUM_IMAGES; i++)
+    drawCount = 0;
+    
+    //srand(time(NULL));
+    
+    for (int i = 0; i < NUM_THUMBNAILS; i++)
     {
         std::stringstream path, num;
         path << "images/testimage_";
         num << i + 1;
         path << num.str() << ".jpg";
-        cout << path.str() << endl;
         
         ofImage lImg;
-        lImg.allocate(SCREEN_WIDTH, SCREEN_HEIGHT, OF_IMAGE_COLOR);
+        //lImg.allocate(SCREEN_WIDTH, SCREEN_HEIGHT, OF_IMAGE_COLOR);
         lImg.loadImage(path.str());
         largeImages.push_back(lImg);
         
         ofImage sImg;
-        sImg.allocate(SCREEN_WIDTH, SCREEN_HEIGHT, OF_IMAGE_COLOR);
+        //sImg.allocate(SCREEN_WIDTH, SCREEN_HEIGHT, OF_IMAGE_COLOR);
         sImg.setFromPixels(lImg.getPixels(), lImg.getWidth(), lImg.getHeight(), OF_IMAGE_COLOR);
         sImg.resize(SCREEN_WIDTH / 8, SCREEN_HEIGHT / 8);
         smallImages.push_back(sImg);
     }
+    
+    displayMode = DISPLAY_MODE_THUMB_SWITCH;
 }
 
 //--------------------------------------------------------------
 void testApp::update()
 {
-    if (ofGetFrameNum() % (int)(ofGetFrameRate() / 8) == 0)
-    {
-        int lastIndex = currentImageIndex;
-        do
-        {
-            currentImageIndex = (int)ofRandom(NUM_IMAGES);
-        } while(currentImageIndex == lastIndex);
-    }
+    
 }
 
 //--------------------------------------------------------------
 void testApp::draw()
 {
-    ofImage img = smallImages[currentImageIndex];
-    img.draw(img.width * (currentImageIndex % 4), img.height * (int)(currentImageIndex / 4));
+    switch (displayMode)
+    {
+        case DISPLAY_MODE_THUMB_SWITCH:
+            switchThumbnails();
+            break;
+            
+        case DISPLAY_MODE_THUMB_FIX:
+            tilingThumbnails();
+            break;
+            
+    }
+    
+    if (ofGetFrameNum() % (int)ofGetFrameRate() == 0)
+    {
+        drawCount++;
+    }
+    
+    if (drawCount >= 5)
+    {
+        displayMode = DISPLAY_MODE_THUMB_FIX;
+    }
+}
+
+//--------------------------------------------------------------
+void testApp::switchThumbnails()
+{
+    if (ofGetFrameNum() % (int)(ofGetFrameRate() / 16) == 0)
+    {
+        int lastIndex = currentThumbnailIndex;
+        
+        do
+        {
+            currentThumbnailIndex = (int)ofRandom(NUM_THUMBNAILS);
+        } while(currentThumbnailIndex == lastIndex);
+    }
+    
+    ofImage img = smallImages[currentThumbnailIndex];
+    img.draw(img.width * (currentThumbnailIndex % 4), img.height * (int)(currentThumbnailIndex / 4));
+}
+
+//--------------------------------------------------------------
+void testApp::tilingThumbnails()
+{
+    if (ofGetFrameNum() % (int)(ofGetFrameRate() / 16) == 0)
+    {
+        if (availableThumbIndexes.empty())
+        {
+            availableThumbIndexes.push_back(currentThumbnailIndex);
+        }
+        
+        if (NUM_THUMBNAILS != availableThumbIndexes.size())
+        {
+            int index = (int)ofRandom(0, NUM_THUMBNAILS);
+            
+            bool bValidIndex = false;
+            while (!bValidIndex)
+            {
+                for (int i = 0; i < availableThumbIndexes.size(); i++)
+                {
+                    if (index == availableThumbIndexes[i])
+                    {
+                        bValidIndex = false;
+                        
+                        index = (int)ofRandom(0, NUM_THUMBNAILS);
+                        
+                        break;
+                    }
+                    bValidIndex = true;
+                }
+            }
+            
+            availableThumbIndexes.push_back(index);
+        }
+    }
+    
+    for (int i = 0; i < availableThumbIndexes.size(); i++)
+    {
+        ofImage* img = &smallImages[i];
+        img->draw(img->width * (availableThumbIndexes[i] % 4), img->height * (int)(availableThumbIndexes[i] / 4));
+    }
 }
 
 //--------------------------------------------------------------
