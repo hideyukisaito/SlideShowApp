@@ -7,7 +7,7 @@ void testApp::setup()
     ofSetFrameRate(60);
     ofEnableSmoothing();
     
-    XML.loadFile("SlideShowApp.xml");
+    XML.loadFile(ofToDataPath("SlideShowApp.xml"));
     
     control.setup("control panel test", 0, 0, 340, 400);
     control.addPanel("panel 1", 1);
@@ -39,7 +39,7 @@ void testApp::initImages()
                 titleImageFileNames.push_back(root + XML.getValue("FILE_NAME", "", i));
             }
             
-            titleImage.load(titleImageFileNames[0]);
+            titleImage.load(ofToDataPath(titleImageFileNames[0]));
             titleImage.setFadeDuration(1500, 2500);
             ofAddListener(titleImage.FADE_OUT_COMPLETE, this, &testApp::onTitleImageFadeOutComplete);
             
@@ -56,7 +56,7 @@ void testApp::initImages()
                 cout << fileNames[i] << endl;
             }
             
-            currentImage.load(fileNames[0]);
+            currentImage.load(ofToDataPath(fileNames[0]));
             
             XML.popTag();
         }
@@ -116,7 +116,7 @@ void testApp::onTitleImageFadeOutComplete(ofEventArgs &e)
         }
         else
         {
-            titleImage.load(titleImageFileNames[titleImageIndex]);
+            titleImage.load(ofToDataPath(titleImageFileNames[titleImageIndex]));
             titleImage.fadeIn();
         }
     }
@@ -125,7 +125,7 @@ void testApp::onTitleImageFadeOutComplete(ofEventArgs &e)
 //--------------------------------------------------------------
 void testApp::onFadeOutComplete(ofEventArgs &e)
 {
-    currentImage.load(fileNames[++personImageIndex]);
+    currentImage.load(ofToDataPath(fileNames[++personImageIndex]));
     if (numPersonImages - 1 == personImageIndex) personImageIndex = 0;
     currentImage.fadeIn();
     std::printf("fade out complete!\n");
