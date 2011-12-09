@@ -5,7 +5,7 @@
 #define SCREEN_WIDTH 1200
 #define SCREEN_HEIGHT 1920
 
-// #define ENV_RELAESE // uncomment this when release
+#define ENV_RELAESE // uncomment this when release
 
 //========================================================================
 int main()
@@ -15,7 +15,7 @@ int main()
     #ifdef ENV_RELEASE
         ofSetupOpenGL(&window, SCREEN_WIDTH, SCREEN_HEIGHT, OF_WINDOW);
     #else
-        ofSetupOpenGL(&window, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, OF_WINDOW);
+        ofSetupOpenGL(&window, SCREEN_WIDTH, SCREEN_HEIGHT, OF_WINDOW);
     #endif
     
 	// this kicks off the running of my app

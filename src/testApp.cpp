@@ -7,68 +7,188 @@ void testApp::setup()
     ofSetFrameRate(60);
     ofEnableSmoothing();
     
-    drawCount = 0;
+    XML.loadFile("SlideShowApp.xml");
     
-    //srand(time(NULL));
+    control.setup("control panel test", 0, 0, 340, 400);
+    control.addPanel("panel 1", 1);
+    control.addSlider("rotation", "rot", 100, 0, 360, false);
     
-    for (int i = 0; i < NUM_THUMBNAILS; i++)
-    {
-        std::stringstream path, num;
-        path << "images/testimage_";
-        num << i + 1;
-        path << num.str() << ".jpg";
-        
-        ofImage lImg;
-        //lImg.allocate(SCREEN_WIDTH, SCREEN_HEIGHT, OF_IMAGE_COLOR);
-        lImg.loadImage(path.str());
-        largeImages.push_back(lImg);
-        
-        ofImage sImg;
-        //sImg.allocate(SCREEN_WIDTH, SCREEN_HEIGHT, OF_IMAGE_COLOR);
-        sImg.setFromPixels(lImg.getPixels(), lImg.getWidth(), lImg.getHeight(), OF_IMAGE_COLOR);
-        sImg.resize(SCREEN_WIDTH / 8, SCREEN_HEIGHT / 8);
-        smallImages.push_back(sImg);
-    }
+    receiver.setup(PORT);
+    
+    initImages();
     
     displayMode = DISPLAY_MODE_THUMB_SWITCH;
+    
+    timer.setup(5000, true);
+    ofAddListener(timer.TIMER_REACHED, this, &testApp::onTimerReached);
+}
+
+//--------------------------------------------------------------
+void testApp::initImages()
+{
+    bImageInitialized = false;
+    
+    if (XML.pushTag("IMAGE"))
+    {
+        string root = XML.getAttribute("TITLES", "root", "");
+        if (XML.pushTag("TITLES"))
+        {
+            numTitleImages = XML.getNumTags("FILE_NAME");
+            for (int i = 0; i < numTitleImages; i++)
+            {
+                titleImageFileNames.push_back(root + XML.getValue("FILE_NAME", "", i));
+            }
+            
+            titleImage.load(titleImageFileNames[0]);
+            titleImage.setFadeDuration(1500, 2500);
+            ofAddListener(titleImage.FADE_OUT_COMPLETE, this, &testApp::onTitleImageFadeOutComplete);
+            
+            XML.popTag();
+        }
+        
+        root = XML.getAttribute("PERSONS", "root", "");
+        if (XML.pushTag("PERSONS"))
+        {
+            numPersonImages = XML.getNumTags("FILE_NAME");
+            for (int i = 0; i < numPersonImages; i++)
+            {
+                fileNames.push_back(root + XML.getValue("FILE_NAME", "", i));
+                cout << fileNames[i] << endl;
+            }
+            
+            currentImage.load(fileNames[0]);
+            
+            XML.popTag();
+        }
+        XML.popTag();
+    }
+    
+    titleImageIndex = 0;
+    
+    bPersonImagesAvailable = false;
+    personImageIndex = 0;
+    
+    bImageInitialized = true;
+}
+
+//--------------------------------------------------------------
+void testApp::reload()
+{
+    timer.stopTimer();
+    timer.reset();
+    
+    overlay.show();
+    initImages();
+    
+    ofAddListener(timer.TIMER_REACHED, this, &testApp::onReloadCompleted);
+    timer.setup(5000, false);
+}
+
+void testApp::onReloadCompleted(ofEventArgs&)
+{
+    ofRemoveListener(timer.TIMER_REACHED, this, &testApp::onReloadCompleted);
+    
+    timer.stopTimer();
+    timer.reset();
+    overlay.hide();
+    timer.setup(5000, true);
+    ofAddListener(timer.TIMER_REACHED, this, &testApp::onTimerReached);
+    cout << "=== RELOAD COMPLETED ===" << endl;
+}
+
+//--------------------------------------------------------------
+void testApp::onTitleImageFadeOutComplete(ofEventArgs &e)
+{
+    if (!bPersonImagesAvailable)
+    {
+        ++titleImageIndex;
+        if (numTitleImages == titleImageIndex)
+        {
+            ofRemoveListener(titleImage.FADE_OUT_COMPLETE, this, &testApp::onTitleImageFadeOutComplete);
+            titleImageIndex = 0;
+            
+            timer.stopTimer();
+            timer.setTimer(3000);
+            ofAddListener(currentImage.FADE_OUT_COMPLETE, this, &testApp::onFadeOutComplete);
+            bPersonImagesAvailable = true;
+            currentImage.fadeIn();
+            timer.startTimer();
+        }
+        else
+        {
+            titleImage.load(titleImageFileNames[titleImageIndex]);
+            titleImage.fadeIn();
+        }
+    }
+}
+
+//--------------------------------------------------------------
+void testApp::onFadeOutComplete(ofEventArgs &e)
+{
+    currentImage.load(fileNames[++personImageIndex]);
+    if (numPersonImages - 1 == personImageIndex) personImageIndex = 0;
+    currentImage.fadeIn();
+    std::printf("fade out complete!\n");
+}
+
+//--------------------------------------------------------------
+void testApp::onTimerReached(ofEventArgs &e)
+{
+    if (!bPersonImagesAvailable)
+    {
+        titleImage.fadeOut();
+    }
+    else
+    {
+        currentImage.fadeOut();
+    }
+    cout << "timer reached" << endl;
 }
 
 //--------------------------------------------------------------
 void testApp::update()
 {
-    
+    if (receiver.hasWaitingMessages())
+    {
+        ofxOscMessage msg;
+        receiver.getNextMessage(&msg);
+        if ("/image/filename" == msg.getAddress())
+        {
+            string filename = msg.getArgAsString(0);
+            if (XML.pushTag("IMAGE"))
+            {
+                if (XML.pushTag("PERSONS"))
+                {
+                    numPersonImages = XML.getNumTags("FILE_NAME");
+                    XML.popTag();
+                }
+                XML.popTag();
+                
+            }
+            reload();
+            cout << "message from testApp: " + filename << endl;
+        }
+    }
 }
 
 //--------------------------------------------------------------
 void testApp::draw()
 {
-    switch (displayMode)
+    if (!bPersonImagesAvailable)
     {
-        case DISPLAY_MODE_THUMB_SWITCH:
-            switchThumbnails();
-            break;
-            
-        case DISPLAY_MODE_THUMB_FIX:
-            tilingThumbnails();
-            break;
-            
+        titleImage.draw();
     }
-    
-    if (ofGetFrameNum() % (int)ofGetFrameRate() == 0)
+    else
     {
-        drawCount++;
+        currentImage.draw();
     }
-    
-    if (drawCount >= 5)
-    {
-        displayMode = DISPLAY_MODE_THUMB_FIX;
-    }
+    overlay.draw();
 }
 
 //--------------------------------------------------------------
 void testApp::switchThumbnails()
 {
-    if (ofGetFrameNum() % (int)(ofGetFrameRate() / 16) == 0)
+    if (ofGetFrameNum() % (int)(ofGetFrameRate() / 4) == 0)
     {
         int lastIndex = currentThumbnailIndex;
         
@@ -85,7 +205,7 @@ void testApp::switchThumbnails()
 //--------------------------------------------------------------
 void testApp::tilingThumbnails()
 {
-    if (ofGetFrameNum() % (int)(ofGetFrameRate() / 16) == 0)
+    if (ofGetFrameNum() % (int)(ofGetFrameRate() / 4) == 0)
     {
         if (availableThumbIndexes.empty())
         {
@@ -126,7 +246,7 @@ void testApp::tilingThumbnails()
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-
+    currentImage.fadeIn();
 }
 
 //--------------------------------------------------------------
@@ -146,7 +266,7 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-
+    
 }
 
 //--------------------------------------------------------------
@@ -156,15 +276,5 @@ void testApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::windowResized(int w, int h){
-
-}
-
-//--------------------------------------------------------------
-void testApp::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void testApp::dragEvent(ofDragInfo dragInfo){ 
 
 }
