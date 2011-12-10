@@ -28,7 +28,7 @@ void testApp::initImages()
 {
     bImageInitialized = false;
     
-    if (XML.pushTag("IMAGE"))
+    if (XML.loadFile(ofToDataPath("SlideShowApp.xml")) && XML.pushTag("IMAGE"))
     {
         string root = XML.getAttribute("TITLES", "root", "");
         if (XML.pushTag("TITLES"))
@@ -50,10 +50,11 @@ void testApp::initImages()
         if (XML.pushTag("PERSONS"))
         {
             numPersonImages = XML.getNumTags("FILE_NAME");
+            fileNames.clear();
             for (int i = 0; i < numPersonImages; i++)
             {
                 fileNames.push_back(root + XML.getValue("FILE_NAME", "", i));
-                cout << fileNames[i] << endl;
+                cout << "pushed file name: " << fileNames[i] << endl;
             }
             
             currentImage.load(ofToDataPath(fileNames[0]));
@@ -81,7 +82,7 @@ void testApp::reload()
     initImages();
     
     ofAddListener(timer.TIMER_REACHED, this, &testApp::onReloadCompleted);
-    timer.setup(5000, false);
+    timer.setup(8000, false);
 }
 
 void testApp::onReloadCompleted(ofEventArgs&)
@@ -126,7 +127,8 @@ void testApp::onTitleImageFadeOutComplete(ofEventArgs &e)
 void testApp::onFadeOutComplete(ofEventArgs &e)
 {
     currentImage.load(ofToDataPath(fileNames[++personImageIndex]));
-    if (numPersonImages - 1 == personImageIndex) personImageIndex = 0;
+    cout << "loaded next image, index = : " << personImageIndex << endl;
+    if (numPersonImages - 1 == personImageIndex) personImageIndex = -1;
     currentImage.fadeIn();
     std::printf("fade out complete!\n");
 }
@@ -155,18 +157,8 @@ void testApp::update()
         if ("/image/filename" == msg.getAddress())
         {
             string filename = msg.getArgAsString(0);
-            if (XML.pushTag("IMAGE"))
-            {
-                if (XML.pushTag("PERSONS"))
-                {
-                    numPersonImages = XML.getNumTags("FILE_NAME");
-                    XML.popTag();
-                }
-                XML.popTag();
-                
-            }
+            cout << "received new file name: " << filename << endl;
             reload();
-            cout << "message from testApp: " + filename << endl;
         }
     }
 }
@@ -277,4 +269,13 @@ void testApp::mouseReleased(int x, int y, int button){
 //--------------------------------------------------------------
 void testApp::windowResized(int w, int h){
 
+}
+
+//--------------------------------------------------------------
+void testApp::exit()
+{
+    titleImageFileNames.clear();
+    fileNames.clear();
+    XML.saveFile();
+    cout << "BYE!" << endl;
 }

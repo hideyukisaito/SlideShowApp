@@ -41,6 +41,7 @@ public:
 	void mousePressed(int x, int y, int button);
 	void mouseReleased(int x, int y, int button);
 	void windowResized(int w, int h);
+    void exit();
     
     void initImages();
     void reload();
@@ -57,6 +58,7 @@ public:
     void onTimerReached(ofEventArgs &e);
     
     bool bImageInitialized;
+    string newFileName;
     
     std::vector<string> titleImageFileNames;
     int numTitleImages;

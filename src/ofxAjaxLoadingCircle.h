@@ -16,7 +16,7 @@ class ofxAjaxLoadingCircle
 {
 public:
     ofxAjaxLoadingCircle();
-    ~ofxAjaxLoadingCircle(){};
+    ~ofxAjaxLoadingCircle();
     
     void setup(float w, float h);
     void setBackgroundColor(int r, int g, int b);

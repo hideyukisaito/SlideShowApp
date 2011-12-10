@@ -15,6 +15,7 @@ ofxHSBasicImage::ofxHSBasicImage()
 //--------------------------------------------------------------
 ofxHSBasicImage::~ofxHSBasicImage()
 {
+    ofRemoveListener(ofEvents.update, this, &ofxHSBasicImage::update);
     image.clear();
 }
 

@@ -23,6 +23,11 @@ ofxAjaxLoadingCircle::ofxAjaxLoadingCircle()
     ofAddListener(ofEvents.update, this, &ofxAjaxLoadingCircle::update);
 }
 
+ofxAjaxLoadingCircle::~ofxAjaxLoadingCircle()
+{
+    ofRemoveListener(ofEvents.update, this, &ofxAjaxLoadingCircle::update);
+}
+
 void ofxAjaxLoadingCircle::setup(float w, float h)
 {
     width = w;
