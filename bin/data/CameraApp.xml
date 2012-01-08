@@ -1,0 +1,13 @@
+<VIDEO_GRABBER>
+    <FRAME_WIDTH>1280</FRAME_WIDTH>
+    <FRAME_HEIGHT>720</FRAME_HEIGHT>
+</VIDEO_GRABBER>
+<FONT>
+    <NAME>arial.ttf</NAME>
+    <SIZE>30</SIZE>
+    <LINE_HEIGHT>34.0</LINE_HEIGHT>
+    <LETTER_SPACING>1.037</LETTER_SPACING>
+</FONT>
+<EXPORT_PATH>/Users/otiashee/Develop/openFrameworks/of_preRelease_v007_osx/apps/myApps/SlideShowApp/bin/data/images/persons/</EXPORT_PATH>
+<IMAGE_PREFIX />
+<SNAP_COUNT>108</SNAP_COUNT>
