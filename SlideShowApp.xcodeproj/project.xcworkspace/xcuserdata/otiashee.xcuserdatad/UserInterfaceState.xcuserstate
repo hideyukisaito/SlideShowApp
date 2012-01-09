@@ -6279,8 +6279,8 @@
 				</dict>
 			</array>
 		</dict>
-		<real>347737130.56402701</real>
-		<string>{0, 1122}</string>
+		<real>347787045.609918</real>
+		<string>{0, 1338}</string>
 		<string>{95, 15}</string>
 		<dict>
 			<key>$class</key>
@@ -38824,7 +38824,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>552</real>
+		<real>578</real>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -39194,7 +39194,7 @@
 		<string>IDESCMStatusFilteringEnabled</string>
 		<string>IDESelectedObjects</string>
 		<string>IDEExpandedItemsSet</string>
-		<string>{{0, 0}, {259, 732}}</string>
+		<string>{{0, 0}, {259, 758}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -39436,7 +39436,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>972</real>
+		<real>1180</real>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -40110,7 +40110,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>486</real>
+		<real>590</real>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -40140,7 +40140,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>485</real>
+		<real>589</real>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -40209,7 +40209,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>486</real>
+		<real>590</real>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -40239,7 +40239,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>485</real>
+		<real>589</real>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -40308,7 +40308,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>661</real>
+		<real>687</real>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -40677,8 +40677,8 @@
 				</dict>
 			</array>
 		</dict>
-		<real>347737130.567146</real>
-		<string>{0, 957}</string>
+		<real>347787045.61378998</real>
+		<string>{60, 972}</string>
 		<string>{768, 0}</string>
 		<string>class ofxHSBasicImage</string>
 		<string>ofxHSBasicImage.h</string>
@@ -40715,7 +40715,7 @@
 				</dict>
 			</array>
 		</dict>
-		<string>{{0, 0}, {485, 639}}</string>
+		<string>{{0, 0}, {589, 665}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -40968,8 +40968,8 @@
 				</dict>
 			</array>
 		</dict>
-		<real>347737130.56680697</real>
-		<string>{0, 1122}</string>
+		<real>347787045.61359698</real>
+		<string>{0, 1338}</string>
 		<string>{95, 15}</string>
 		<string>ofxHSBasicImage::ofxHSBasicImage()</string>
 		<dict>
@@ -41004,7 +41004,7 @@
 				</dict>
 			</array>
 		</dict>
-		<string>{{0, 0}, {972, 639}}</string>
+		<string>{{0, 0}, {1180, 665}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -43640,7 +43640,7 @@
 				</dict>
 			</array>
 		</dict>
-		<string>{{-43, 313}, {1232, 874}}</string>
+		<string>{{-112, -900}, {1440, 900}}</string>
 	</array>
 	<key>$top</key>
 	<dict>
