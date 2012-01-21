@@ -7,6 +7,7 @@ ofxHSBasicImage::ofxHSBasicImage()
     xpos = 0;
     ypos = 0;
     alpha = 0;
+    delay = 0;
     fadeInDuration = fadeInDuration = 1500;
     
     ofAddListener(ofEvents.update, this, &ofxHSBasicImage::update);
@@ -27,11 +28,23 @@ void ofxHSBasicImage::load(string filename)
 }
 
 //--------------------------------------------------------------
+void ofxHSBasicImage::clear()
+{
+    image.clear();
+}
+
+//--------------------------------------------------------------
 void ofxHSBasicImage::load(string filename, int w, int h)
 {
     bImageLoaded = image.loadImage(filename);
     image.setImageType(OF_IMAGE_COLOR_ALPHA);  
     image.resize(w, h);
+}
+
+//--------------------------------------------------------------
+void ofxHSBasicImage::setAlpha(int a)
+{
+    alpha = a;
 }
 
 //--------------------------------------------------------------
@@ -55,20 +68,15 @@ void ofxHSBasicImage::setFadeDuration(float in, float out)
 }
 
 //--------------------------------------------------------------
+void ofxHSBasicImage::setDelay(float d)
+{
+    delay = d;
+}
+
+//--------------------------------------------------------------
 void ofxHSBasicImage::update(ofEventArgs &e)
 {
-    int last = alpha;
-    
-    if (bFadeIn && !bFadeOut)
-    {
-        //xpos = posTween.update();
-        alpha = alphaTween.update();
-    }
-    else if (!bFadeIn && bFadeOut)
-    {
-        //xpos = posTween.update();
-        alpha = alphaTween.update();
-    }
+    alpha = alphaTween.update();
 }
 
 //--------------------------------------------------------------
@@ -105,20 +113,20 @@ void ofxHSBasicImage::fadeIn()
     bFadeOut = !bFadeIn;
 
     ofAddListener(alphaTween.end_E, this, &ofxHSBasicImage::onShowComplete);
-    alphaTween.setParameters(1, easingCirc, ofxTween::easeOut, alpha, 255, 1000, 0);
-    posTween.setParameters(2, easingCirc, ofxTween::easeOut, ofGetWidth(), 0, fadeInDuration, 0);
+    alphaTween.setParameters(1, easingQuart, ofxTween::easeOut, alpha, 255, 1000, delay);
+    posTween.setParameters(2, easingCirc, ofxTween::easeOut, ofGetWidth(), 0, fadeInDuration, delay);
 }
 
 //--------------------------------------------------------------
 void ofxHSBasicImage::fadeOut()
 {
-    alpha = 255;
+    //alpha = 255;
     bFadeOut = true;
     bFadeIn = !bFadeOut;
     
     ofAddListener(alphaTween.end_E, this, &ofxHSBasicImage::onHideComplete);
-    alphaTween.setParameters(1, easingCirc, ofxTween::easeOut, alpha, 0, 1000, 0);
-    posTween.setParameters(2, easingQuint, ofxTween::easeOut, 0, -ofGetWidth(), fadeOutDuration, 0);
+    alphaTween.setParameters(1, easingCirc, ofxTween::easeOut, alpha, 0, 1000, delay);
+    posTween.setParameters(2, easingQuint, ofxTween::easeOut, 0, -ofGetWidth(), fadeOutDuration, delay);
 }
 
 //--------------------------------------------------------------

@@ -14,12 +14,15 @@ public:
     
     void load(string filename);
     void load(string filename, int w, int h);
+    void setAlpha(int a);
     void setPosition(float x, float y);
     void setFadeDuration(float in, float out);
+    void setDelay(float d);
     void draw();
     void draw(float x, float y);
     void fadeIn();
     void fadeOut();
+    void clear();
     
     bool isImageLoaded();
     
@@ -48,6 +51,9 @@ private:
     ofxEasingCirc easingCirc;
     ofxEasingCubic easingCubic;
     ofxEasingQuint easingQuint;
+    ofxEasingQuart easingQuart;
+    
+    float delay;
 };
 
 #endif

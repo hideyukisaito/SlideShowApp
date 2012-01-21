@@ -65,4 +65,11 @@
         <FILE_NAME>29.jpg</FILE_NAME>
         <FILE_NAME>30.jpg</FILE_NAME>
     </GLASSES>
+    <MOVIES root="images/movies/">
+        <FILE_NAME>1.mov</FILE_NAME>
+        <FILE_NAME>2.mov</FILE_NAME>
+        <FILE_NAME>4.mov</FILE_NAME>
+        <FILE_NAME>5.mov</FILE_NAME>
+        <FILE_NAME>6.mov</FILE_NAME>
+    </MOVIES>
 </IMAGE>

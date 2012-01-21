@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -30,6 +30,7 @@
 		422A8657148BD49A00314BE8 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 422A8651148BD49A00314BE8 /* tinyxmlparser.cpp */; };
 		422A8658148BD49A00314BE8 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 422A8653148BD49A00314BE8 /* ofxXmlSettings.cpp */; };
 		422A865D148BDF4E00314BE8 /* ofxTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 422A865B148BDF4E00314BE8 /* ofxTimer.cpp */; };
+		422D3DA714CAB0110026B809 /* ofxHSBasicMovie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 422D3DA514CAB0110026B809 /* ofxHSBasicMovie.cpp */; };
 		423EDCBE148E65FE00D2C462 /* ofxHSBasicImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 423EDCBD148E65FE00D2C462 /* ofxHSBasicImage.cpp */; };
 		427543D31492B0CA00922E6D /* LoadingOverlay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 427543D21492B0CA00922E6D /* LoadingOverlay.cpp */; };
 		42801883149286AE00D3311C /* guiBaseObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42801849149286AE00D3311C /* guiBaseObject.cpp */; };
@@ -171,6 +172,8 @@
 		422A8654148BD49A00314BE8 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
 		422A865B148BDF4E00314BE8 /* ofxTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTimer.cpp; sourceTree = "<group>"; };
 		422A865C148BDF4E00314BE8 /* ofxTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTimer.h; sourceTree = "<group>"; };
+		422D3DA514CAB0110026B809 /* ofxHSBasicMovie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxHSBasicMovie.cpp; sourceTree = "<group>"; };
+		422D3DA614CAB0110026B809 /* ofxHSBasicMovie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHSBasicMovie.h; sourceTree = "<group>"; };
 		423EDCBD148E65FE00D2C462 /* ofxHSBasicImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxHSBasicImage.cpp; sourceTree = "<group>"; };
 		423EDCC0148E660600D2C462 /* ofxHSBasicImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHSBasicImage.h; sourceTree = "<group>"; };
 		42603A751466ADFB00159960 /* SlideShowAppDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideShowAppDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -619,6 +622,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				422D3DA514CAB0110026B809 /* ofxHSBasicMovie.cpp */,
+				422D3DA614CAB0110026B809 /* ofxHSBasicMovie.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
@@ -668,8 +673,11 @@
 /* Begin PBXProject section */
 		E4B69B4C0A3A1720003C02F2 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "SlideShowApp" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -779,6 +787,7 @@
 				4280189D149286AE00D3311C /* simpleLogger.cpp in Sources */,
 				428018AB149292DD00D3311C /* ofxAjaxLoadingCircle.cpp in Sources */,
 				427543D31492B0CA00922E6D /* LoadingOverlay.cpp in Sources */,
+				422D3DA714CAB0110026B809 /* ofxHSBasicMovie.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -818,7 +827,7 @@
 					"-D__MACOSX_CORE__",
 					"-lpthread",
 				);
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				SDKROOT = macosx10.6;
 			};
 			name = Debug;
 		};
@@ -849,7 +858,7 @@
 					"-D__MACOSX_CORE__",
 					"-lpthread",
 				);
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				SDKROOT = macosx10.6;
 			};
 			name = Release;
 		};
@@ -863,7 +872,6 @@
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/glut/lib/osx\"";
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = G4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -936,7 +944,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../addons/ofxOsc/libs/oscpack/lib/osx\"";
-				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
 				WRAPPER_EXTENSION = app;
 			};
@@ -951,7 +958,6 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/glut/lib/osx\"";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1024,7 +1030,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../addons/ofxOsc/libs/oscpack/lib/osx\"";
-				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

@@ -5,6 +5,7 @@
 #include "ofxControlPanel.h"
 #include "ofxOsc.h"
 #include "ofxHSBasicImage.h"
+#include "ofxHSBasicMovie.h"
 #include "ofxTimer.h"
 #include "LoadingOverlay.h"
 
@@ -58,29 +59,36 @@ public:
     void onTimerReached(ofEventArgs &e);
     
     bool bImageInitialized;
-    string newFileName;
     
-    std::vector<string> titleImageFileNames;
+    vector<string> titleImageFileNames;
     int numTitleImages;
     int titleImageIndex;
-    ofxHSBasicImage currentImage;
+    ofxHSBasicImage titleImage;
     void onTitleImageFadeOutComplete(ofEventArgs &e);
     
     bool bPersonImagesAvailable;
     int numPersonImages;
     int personImageIndex;
-    ofxHSBasicImage titleImage;
-    void onFadeOutComplete(ofEventArgs &e);
+    ofxHSBasicImage currentImage;
+    void onImageFadeOutComplete(ofEventArgs &e);
     
-    std::vector<string> fileNames;
-    std::vector<ofImage> smallImages;
-    std::vector<ofImage> largeImages;
+    vector<string> fileNames;
+    vector<ofImage> smallImages;
+    vector<ofImage> largeImages;
+    
+    vector<ofxHSBasicMovie> movies;
+    vector<string> movieFileNames;
+    int numMovieFiles;
+    int movieIndex;
+    bool bMoviePlayed;
+    ofxHSBasicMovie currentMovie;
+    void onMoviePlayComplete(ofEventArgs &e);
     
     int currentThumbnailIndex;
     int displayMode;
     
-    std::vector<int> availableThumbIndexes;
-    std::vector<int>::iterator iter;
+    vector<int> availableThumbIndexes;
+    vector<int>::iterator iter;
     
     ofxOscReceiver receiver;
     
