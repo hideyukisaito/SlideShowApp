@@ -177,6 +177,8 @@
 		423EDCBD148E65FE00D2C462 /* ofxHSBasicImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxHSBasicImage.cpp; sourceTree = "<group>"; };
 		423EDCC0148E660600D2C462 /* ofxHSBasicImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHSBasicImage.h; sourceTree = "<group>"; };
 		42603A751466ADFB00159960 /* SlideShowAppDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideShowAppDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4260DFCA14CB1A74003EAF46 /* ofxState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxState.h; sourceTree = "<group>"; };
+		4260DFCB14CB1A74003EAF46 /* ofxStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxStateMachine.h; sourceTree = "<group>"; };
 		427543D11492B0BD00922E6D /* LoadingOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingOverlay.h; sourceTree = "<group>"; };
 		427543D21492B0CA00922E6D /* LoadingOverlay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadingOverlay.cpp; sourceTree = "<group>"; };
 		42801849149286AE00D3311C /* guiBaseObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guiBaseObject.cpp; sourceTree = "<group>"; };
@@ -476,6 +478,24 @@
 			path = ../../../addons/ofxTimer;
 			sourceTree = "<group>";
 		};
+		4260DFC714CB1A74003EAF46 /* ofxStateMachine */ = {
+			isa = PBXGroup;
+			children = (
+				4260DFC914CB1A74003EAF46 /* src */,
+			);
+			name = ofxStateMachine;
+			path = ../../../addons/ofxStateMachine;
+			sourceTree = "<group>";
+		};
+		4260DFC914CB1A74003EAF46 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				4260DFCA14CB1A74003EAF46 /* ofxState.h */,
+				4260DFCB14CB1A74003EAF46 /* ofxStateMachine.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		42801847149286AE00D3311C /* ofxControlPanel */ = {
 			isa = PBXGroup;
 			children = (
@@ -553,6 +573,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				4260DFC714CB1A74003EAF46 /* ofxStateMachine */,
 				42801847149286AE00D3311C /* ofxControlPanel */,
 				422A8659148BDF4E00314BE8 /* ofxTimer */,
 				422A864B148BD49A00314BE8 /* ofxXmlSettings */,
