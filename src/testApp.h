@@ -8,6 +8,7 @@
 #include "ofxHSBasicMovie.h"
 #include "ofxTimer.h"
 #include "LoadingOverlay.h"
+#include "ofxTween.h"
 
 #include <iostream>
 #include <sstream>
@@ -50,6 +51,11 @@ public:
     
     void switchThumbnails();
     void tilingThumbnails();
+    bool isKeyIndex(int index);
+    
+    void onTitleImageFadeOutComplete(ofEventArgs &e);
+    void onImageFadeOutComplete(ofEventArgs &e);
+    void onMovieFadeOutComplete(int &id);
     
     ofxXmlSettings XML;
     
@@ -59,30 +65,30 @@ public:
     void onTimerReached(ofEventArgs &e);
     
     bool bImageInitialized;
+    bool bShowMovie;
+    bool bSkipCheckingIndex;
     
     vector<string> titleImageFileNames;
     int numTitleImages;
     int titleImageIndex;
     ofxHSBasicImage titleImage;
-    void onTitleImageFadeOutComplete(ofEventArgs &e);
     
     bool bPersonImagesAvailable;
     int numPersonImages;
     int personImageIndex;
     ofxHSBasicImage currentImage;
-    void onImageFadeOutComplete(ofEventArgs &e);
     
     vector<string> fileNames;
     vector<ofImage> smallImages;
     vector<ofImage> largeImages;
+    vector<int> movieKeyIndexes;
     
-    vector<ofxHSBasicMovie> movies;
+    vector<ofVideoPlayer> movies;
     vector<string> movieFileNames;
     int numMovieFiles;
     int movieIndex;
     bool bMoviePlayed;
-    ofxHSBasicMovie currentMovie;
-    void onMoviePlayComplete(ofEventArgs &e);
+    ofVideoPlayer currentMovie;
     
     int currentThumbnailIndex;
     int displayMode;
@@ -93,4 +99,8 @@ public:
     ofxOscReceiver receiver;
     
     LoadingOverlay overlay;
+    
+    int movieAlpha;
+    ofxTween movieAlphaTween;
+    ofxEasingCirc easingCirc;
 };

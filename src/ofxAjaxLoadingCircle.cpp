@@ -81,10 +81,10 @@ void ofxAjaxLoadingCircle::hide()
 
 void ofxAjaxLoadingCircle::update(ofEventArgs &e)
 {
-    if (ofGetFrameNum() % (int)(ofGetFrameRate() / 16) == 0)
-    {
-        angle = TWO_PI > angle ? angle + step : step;
-    }
+//    if (ofGetFrameNum() % (int)(ofGetFrameRate() / 16) == 0)
+//    {
+//        angle = TWO_PI > angle ? angle + step : step;
+//    }
 }
 
 void ofxAjaxLoadingCircle::draw(float x, float y)

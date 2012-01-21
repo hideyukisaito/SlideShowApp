@@ -65,7 +65,7 @@
         <FILE_NAME>29.jpg</FILE_NAME>
         <FILE_NAME>30.jpg</FILE_NAME>
     </GLASSES>
-    <MOVIES root="images/movies/">
+    <MOVIES root="movies/">
         <FILE_NAME>1.mov</FILE_NAME>
         <FILE_NAME>2.mov</FILE_NAME>
         <FILE_NAME>4.mov</FILE_NAME>

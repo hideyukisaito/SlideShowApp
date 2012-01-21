@@ -28,7 +28,7 @@ void testApp::setup()
 //--------------------------------------------------------------
 void testApp::initImages()
 {
-    bImageInitialized = false;
+    bImageInitialized = bShowMovie = false;
     
     if (XML.loadFile(ofToDataPath("SlideShowApp.xml")) && XML.pushTag("IMAGE"))
     {
@@ -68,19 +68,22 @@ void testApp::initImages()
             numMovieFiles = XML.getNumTags("FILE_NAME");
             movies.clear();
             
+            int baseIndex = numPersonImages / numMovieFiles;
+            cout << "baseIndex = " << baseIndex << endl;
             for (int i = 0; i < numMovieFiles; i++)
             {
-                ofxHSBasicMovie movie;
+                ofVideoPlayer movie;
                 
-                if ( movie.load(root + XML.getValue("FILE_NAME", "", i)) )
+                if ( movie.loadMovie(root + XML.getValue("FILE_NAME", "", i)) )
                 {
                     movies.push_back(movie);
                 }
+                movieKeyIndexes.push_back(baseIndex * (i + 1));
             }
             
             currentMovie = movies[0];
-            currentMovie.setLoopState(OF_LOOP_NONE);
-            currentImage.fadeIn();
+            currentMovie.setLoopState(OF_LOOP_NORMAL);
+            currentMovie.play();
             
             XML.popTag();
         }
@@ -88,7 +91,7 @@ void testApp::initImages()
     }
     
     titleImageIndex = personImageIndex = movieIndex = 0;
-    bPersonImagesAvailable = bMoviePlayed = false;
+    bPersonImagesAvailable = bMoviePlayed = bSkipCheckingIndex = false;
     bImageInitialized = true;
 }
 
@@ -123,11 +126,10 @@ void testApp::onTitleImageFadeOutComplete(ofEventArgs &e)
     titleImage.setDelay(0);
     if (!bPersonImagesAvailable)
     {
-        ++titleImageIndex;
-        if (numTitleImages == titleImageIndex)
+        if (numTitleImages - 1 == titleImageIndex)
         {
             ofRemoveListener(titleImage.FADE_OUT_COMPLETE, this, &testApp::onTitleImageFadeOutComplete);
-            titleImageIndex = 0;
+            titleImageIndex = -1;
             
             timer.stopTimer();
             timer.setTimer(5000);
@@ -138,7 +140,7 @@ void testApp::onTitleImageFadeOutComplete(ofEventArgs &e)
         }
         else
         {
-            titleImage.load(ofToDataPath(titleImageFileNames[titleImageIndex]));
+            titleImage.load(ofToDataPath(titleImageFileNames[++titleImageIndex]));
             titleImage.fadeIn();
         }
     }
@@ -147,44 +149,54 @@ void testApp::onTitleImageFadeOutComplete(ofEventArgs &e)
 //--------------------------------------------------------------
 void testApp::onImageFadeOutComplete(ofEventArgs &e)
 {
-    if (!bMoviePlayed && (int)ofRandom(numPersonImages) % 2 == 0)
+    cout << "numPersonImages              = " << numPersonImages << endl;
+    cout << "personImageIndex             = " << personImageIndex << endl;
+    cout << "bSkipCheckingIndex           = " << bSkipCheckingIndex << endl;
+    cout << "isKeyIndex(personImageIndex) = " << isKeyIndex(personImageIndex) << endl;
+    if (!bSkipCheckingIndex && isKeyIndex(personImageIndex))
     {
-        ofAddListener(currentMovie.PLAY_COMPLETE, this, &testApp::onMoviePlayComplete);
-        currentMovie.fadeIn();
+        cout << "===== PLAY MOVIE =====" << endl;
+        bSkipCheckingIndex = true;
+        bShowMovie = true;
+        movieAlphaTween.setParameters(100, easingCirc, ofxTween::easeOut, movieAlpha, 255, 1000, 0);
+        currentMovie.play();
     }
     else
     {
-        int lastIndex = personImageIndex;
-        currentImage.load(ofToDataPath(fileNames[++personImageIndex]));
-        cout << "loaded next image, index = : " << personImageIndex << endl;
-        if (numPersonImages - 1 == personImageIndex)
+        cout << "===== LOAD NEXT IMAGE =====" << endl;
+        bSkipCheckingIndex = false;
+        personImageIndex = numPersonImages - 1 == personImageIndex ? -1 : personImageIndex + 1;
+        
+        if (0 > personImageIndex)
         {
             ofRemoveListener(currentImage.FADE_OUT_COMPLETE, this, &testApp::onImageFadeOutComplete);
             bPersonImagesAvailable = false;
-            personImageIndex = -1;
+            personImageIndex = 0;
+            currentImage.load(ofToDataPath(fileNames[0]));
             
             ofAddListener(titleImage.FADE_OUT_COMPLETE, this, &testApp::onTitleImageFadeOutComplete);
+            
         }
-        currentImage.fadeIn();
+        else
+        {
+            currentImage.load(ofToDataPath(fileNames[personImageIndex]));
+            currentImage.fadeIn();
+            cout << "image loaded. index          = " << personImageIndex << endl;
+        }
+        
     }
-    
-    std::printf("fade out complete!\n");
 }
 
 //--------------------------------------------------------------
-void testApp::onMoviePlayComplete(ofEventArgs &e)
+void testApp::onMovieFadeOutComplete(int &id)
 {
-    ofRemoveListener(currentMovie.PLAY_COMPLETE, this, &testApp::onMoviePlayComplete);
-    ++movieIndex;
-    if (movies.size() - 1 == movieIndex)
-    {
-        bMoviePlayed = true;
-        movieIndex = 0;
-    }
-    else
-    {
-        currentMovie = movies[movieIndex];
-    }
+    ofRemoveListener(movieAlphaTween.end_E, this, &testApp::onMovieFadeOutComplete);
+    movieIndex = movies.size() - 1 == movieIndex ? 0 : movieIndex + 1;
+    currentMovie = movies[movieIndex];
+    bShowMovie = false;
+    
+    static ofEventArgs eventArgs;
+    ofNotifyEvent(currentImage.FADE_OUT_COMPLETE, eventArgs, &currentImage);
     
     cout << "movie complete!" << endl;
 }
@@ -198,7 +210,15 @@ void testApp::onTimerReached(ofEventArgs &e)
     }
     else
     {
-        currentImage.fadeOut();
+        if (bShowMovie == true)
+        {
+            ofAddListener(movieAlphaTween.end_E, this, &testApp::onMovieFadeOutComplete);
+            movieAlphaTween.setParameters(100, easingCirc, ofxTween::easeOut, movieAlpha, 0, 1000, 0);
+        }
+        else
+        {
+            currentImage.fadeOut();
+        }
     }
     cout << "timer reached" << endl;
 }
@@ -206,7 +226,9 @@ void testApp::onTimerReached(ofEventArgs &e)
 //--------------------------------------------------------------
 void testApp::update()
 {
-    currentMovie.idleMovie();
+    movieAlpha = movieAlphaTween.update();
+    currentMovie.update();
+    
     if (receiver.hasWaitingMessages())
     {
         ofxOscMessage msg;
@@ -229,10 +251,31 @@ void testApp::draw()
     }
     else
     {
-        currentImage.draw();
+        if (bShowMovie == true)
+        {
+            ofPushStyle();
+                ofEnableAlphaBlending();
+                ofSetColor(255, 255, 255, movieAlpha);
+                currentMovie.draw(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                ofDisableAlphaBlending();
+            ofPopStyle();
+        }
+        else
+        {
+            currentImage.draw();
+        }
     }
     overlay.draw();
-    currentMovie.draw(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+}
+
+
+//--------------------------------------------------------------
+bool testApp::isKeyIndex(int index)
+{
+    vector<int>::iterator iter = find(movieKeyIndexes.begin(), movieKeyIndexes.end(), personImageIndex);
+    
+    if (iter != movieKeyIndexes.end()) return true;
+    return false;
 }
 
 //--------------------------------------------------------------

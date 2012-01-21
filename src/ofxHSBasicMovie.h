@@ -12,12 +12,13 @@ public:
     ofxHSBasicMovie();
     ~ofxHSBasicMovie();
     
-    bool load(const string filename);
+    bool loadMovie(const string name);
     void setAlpha(int a);
     void setPosition(float x, float y);
     void setFadeDuration(float in, float out);
     void setDelay(float d);
     void setLoopState(ofLoopType state);
+    void play();
     void draw();
     void draw(float x, float y, float w, float h);
     void fadeIn();
@@ -45,6 +46,7 @@ private:
     bool bFadeOut;
     bool bPlaying;
     bool bNotifiedEvent;
+    bool bInitialized;
     
     float xpos;
     float ypos;
@@ -60,6 +62,8 @@ private:
     ofxEasingQuart easingQuart;
     
     float delay;
+    
+    string filename;
 };
 
 #endif

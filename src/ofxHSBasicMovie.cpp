@@ -8,7 +8,7 @@ ofxHSBasicMovie::ofxHSBasicMovie()
     ypos = 0;
     alpha = 0;
     delay = 0;
-    bNotifiedEvent = false;
+    bNotifiedEvent = bInitialized = false;
     fadeInDuration = fadeInDuration = 1500;
     
     ofAddListener(ofEvents.update, this, &ofxHSBasicMovie::update);
@@ -22,10 +22,11 @@ ofxHSBasicMovie::~ofxHSBasicMovie()
 }
 
 //--------------------------------------------------------------
-bool ofxHSBasicMovie::load(const string filename)
+bool ofxHSBasicMovie::loadMovie(const string name)
 {
+    filename = name;
     //bMovieLoaded = movie.loadMovie(filename);
-    bMovieLoaded = movie.loadMovie(ofToDataPath("1.mov"));
+    bMovieLoaded = movie.loadMovie(filename);
     return bMovieLoaded;
 }
 
@@ -74,10 +75,26 @@ void ofxHSBasicMovie::setLoopState(ofLoopType state)
 }
 
 //--------------------------------------------------------------
+void ofxHSBasicMovie::play()
+{
+    
+}
+
+//--------------------------------------------------------------
 void ofxHSBasicMovie::update(ofEventArgs &e)
 {
-    alpha = alphaTween.update();
-    cout << "movie alpha = " << alpha << endl;
+    if (!bInitialized) 
+    {
+        movie.loadMovie(filename);
+        if (movie.isLoaded())
+        {
+            bInitialized = true;
+        }
+    }
+    
+    if (bInitialized && !movie.isPlaying()) movie.play();
+    cout << "movie.isLoaded : " << movie.isLoaded() << endl;
+    if (movie.isLoaded() && movie.isPlaying()) movie.idleMovie();
     if (!bNotifiedEvent && !movie.isPlaying())
     {
         static ofEventArgs eventArgs;
@@ -108,64 +125,29 @@ void ofxHSBasicMovie::draw(float x, float y, float w, float h)
     xpos = x;
     ypos = y;
     
-//    ofPushStyle();
-//        ofSetupScreen();
-//        ofEnableAlphaBlending();
-//        
-//        ofSetColor(255, 255, 255, 255 - alpha);
-//        ofRect(x, y, w, h);
-//        
-//        ofSetColor(255, 255, 255, 255);
-//        movie.draw(xpos, ypos, w, h);
-//        ofDisableAlphaBlending();
-//    ofPopStyle();
-    
-    ofPushStyle();
-        ofSetupScreen();
+    if (movie.isLoaded())
+    {
+        ofPushStyle();
         ofEnableAlphaBlending();
-        
         ofSetColor(255, 255, 255, 255);
         movie.draw(xpos, ypos, w, h);
         ofDisableAlphaBlending();
-    ofPopStyle();
+        ofPopStyle();
+    }
 }
 
 //--------------------------------------------------------------
 void ofxHSBasicMovie::fadeIn()
 {
-    cout << "========== FADE IN ==========" << endl;
-    bFadeIn = true;
-    bFadeOut = !bFadeIn;
-    
-    if (!hasUpdateListener)
-    {
-        ofAddListener(ofEvents.update, this, &ofxHSBasicMovie::update);
-        hasUpdateListener = true;
-        bNotifiedEvent = false;
-    }
-    
     ofAddListener(alphaTween.end_E, this, &ofxHSBasicMovie::onShowComplete);
-    alphaTween.setParameters(1, easingQuart, ofxTween::easeOut, alpha, 255, 1000, delay);
-    posTween.setParameters(2, easingCirc, ofxTween::easeOut, ofGetWidth(), 0, fadeInDuration, delay);
+    alphaTween.setParameters(100, easingQuart, ofxTween::easeOut, 0, 255, 1000, delay);
 }
 
 //--------------------------------------------------------------
 void ofxHSBasicMovie::fadeOut()
 {
-    //alpha = 255;
-    bFadeOut = true;
-    bFadeIn = !bFadeOut;
-    
-    if (!hasUpdateListener)
-    {
-        ofAddListener(ofEvents.update, this, &ofxHSBasicMovie::update);
-        hasUpdateListener = true;
-        bNotifiedEvent = false;
-    }
-    
     ofAddListener(alphaTween.end_E, this, &ofxHSBasicMovie::onHideComplete);
-    alphaTween.setParameters(1, easingCirc, ofxTween::easeOut, alpha, 0, 1000, delay);
-    posTween.setParameters(2, easingQuint, ofxTween::easeOut, 0, -ofGetWidth(), fadeOutDuration, delay);
+    alphaTween.setParameters(101, easingCirc, ofxTween::easeOut, 255, 0, 1000, delay);
 }
 
 //--------------------------------------------------------------
@@ -184,7 +166,6 @@ void ofxHSBasicMovie::onShowComplete(int &id)
         bNotifiedEvent = false;
     }
     
-    if (movie.isLoaded()) movie.play();
     static ofEventArgs eventArgs;
     ofNotifyEvent(FADE_IN_COMPLETE, eventArgs, this);
 }
@@ -194,11 +175,10 @@ void ofxHSBasicMovie::onHideComplete(int &id)
 {
     if (hasUpdateListener)
     {
-        ofAddListener(ofEvents.update, this, &ofxHSBasicMovie::update);
+        ofRemoveListener(ofEvents.update, this, &ofxHSBasicMovie::update);
         hasUpdateListener = false;
     }
     
-    if (movie.isLoaded()) movie.stop();
     static ofEventArgs eventArgs;
     ofNotifyEvent(FADE_OUT_COMPLETE, eventArgs, this);
 }
