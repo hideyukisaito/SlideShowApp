@@ -1,19 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxXmlSettings.h"
-#include "ofxControlPanel.h"
 #include "ofxOsc.h"
-#include "ofxHSBasicImage.h"
-#include "ofxHSBasicMovie.h"
-#include "ofxTimer.h"
-#include "LoadingOverlay.h"
-#include "ofxTween.h"
-
-#include <iostream>
-#include <sstream>
-#include <vector>
-#include <time.h>
+#include "ofxStateMachine.h"
+#include "HSSharedData.h"
 
 #define SCREEN_WIDTH  1200
 #define SCREEN_HEIGHT 1920
@@ -45,62 +35,11 @@ public:
 	void windowResized(int w, int h);
     void exit();
     
-    void initImages();
-    void reload();
-    void onReloadCompleted(ofEventArgs&);
+    void initStates();
     
-    void switchThumbnails();
-    void tilingThumbnails();
-    bool isKeyIndex(int index);
+    void onMessageReceived(ofxOscMessage &msg);
     
-    void onTitleImageFadeOutComplete(ofEventArgs &e);
-    void onImageFadeOutComplete(ofEventArgs &e);
-    void onMovieFadeOutComplete(int &id);
-    
-    ofxXmlSettings XML;
-    
-    ofxControlPanel control;
-    
-    ofxTimer timer;
-    void onTimerReached(ofEventArgs &e);
-    
-    bool bImageInitialized;
-    bool bShowMovie;
-    bool bSkipCheckingIndex;
-    
-    vector<string> titleImageFileNames;
-    int numTitleImages;
-    int titleImageIndex;
-    ofxHSBasicImage titleImage;
-    
-    bool bPersonImagesAvailable;
-    int numPersonImages;
-    int personImageIndex;
-    ofxHSBasicImage currentImage;
-    
-    vector<string> fileNames;
-    vector<ofImage> smallImages;
-    vector<ofImage> largeImages;
-    vector<int> movieKeyIndexes;
-    
-    vector<ofVideoPlayer> movies;
-    vector<string> movieFileNames;
-    int numMovieFiles;
-    int movieIndex;
-    bool bMoviePlayed;
-    ofVideoPlayer currentMovie;
-    
-    int currentThumbnailIndex;
-    int displayMode;
-    
-    vector<int> availableThumbIndexes;
-    vector<int>::iterator iter;
+    Apex::ofxStateMachine<HSSharedData> stateMachine;
     
     ofxOscReceiver receiver;
-    
-    LoadingOverlay overlay;
-    
-    int movieAlpha;
-    ofxTween movieAlphaTween;
-    ofxEasingCirc easingCirc;
 };

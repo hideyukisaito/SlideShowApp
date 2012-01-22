@@ -30,9 +30,8 @@
 		422A8657148BD49A00314BE8 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 422A8651148BD49A00314BE8 /* tinyxmlparser.cpp */; };
 		422A8658148BD49A00314BE8 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 422A8653148BD49A00314BE8 /* ofxXmlSettings.cpp */; };
 		422A865D148BDF4E00314BE8 /* ofxTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 422A865B148BDF4E00314BE8 /* ofxTimer.cpp */; };
-		422D3DA714CAB0110026B809 /* ofxHSBasicMovie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 422D3DA514CAB0110026B809 /* ofxHSBasicMovie.cpp */; };
 		423EDCBE148E65FE00D2C462 /* ofxHSBasicImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 423EDCBD148E65FE00D2C462 /* ofxHSBasicImage.cpp */; };
-		427543D31492B0CA00922E6D /* LoadingOverlay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 427543D21492B0CA00922E6D /* LoadingOverlay.cpp */; };
+		4260DFCE14CB1C7E003EAF46 /* GlassImagesState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4260DFCD14CB1C7E003EAF46 /* GlassImagesState.cpp */; };
 		42801883149286AE00D3311C /* guiBaseObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42801849149286AE00D3311C /* guiBaseObject.cpp */; };
 		42801884149286AE00D3311C /* guiCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4280184B149286AE00D3311C /* guiCallback.cpp */; };
 		42801885149286AE00D3311C /* guiCallbackValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4280184D149286AE00D3311C /* guiCallbackValue.cpp */; };
@@ -60,7 +59,9 @@
 		4280189B149286AE00D3311C /* simpleColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4280187D149286AE00D3311C /* simpleColor.cpp */; };
 		4280189C149286AE00D3311C /* simpleFileLister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4280187F149286AE00D3311C /* simpleFileLister.cpp */; };
 		4280189D149286AE00D3311C /* simpleLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42801881149286AE00D3311C /* simpleLogger.cpp */; };
-		428018AB149292DD00D3311C /* ofxAjaxLoadingCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 428018AA149292DD00D3311C /* ofxAjaxLoadingCircle.cpp */; };
+		42ABD0E714CB434E0008C661 /* TitleImagesState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42ABD0E614CB434E0008C661 /* TitleImagesState.cpp */; };
+		42ABD0EA14CB5C380008C661 /* PersonImagesState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42ABD0E914CB5C380008C661 /* PersonImagesState.cpp */; };
+		42ABD0F414CBD3BB0008C661 /* LoadingState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42ABD0F314CBD3BB0008C661 /* LoadingState.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -172,15 +173,13 @@
 		422A8654148BD49A00314BE8 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
 		422A865B148BDF4E00314BE8 /* ofxTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTimer.cpp; sourceTree = "<group>"; };
 		422A865C148BDF4E00314BE8 /* ofxTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTimer.h; sourceTree = "<group>"; };
-		422D3DA514CAB0110026B809 /* ofxHSBasicMovie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxHSBasicMovie.cpp; sourceTree = "<group>"; };
-		422D3DA614CAB0110026B809 /* ofxHSBasicMovie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHSBasicMovie.h; sourceTree = "<group>"; };
 		423EDCBD148E65FE00D2C462 /* ofxHSBasicImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxHSBasicImage.cpp; sourceTree = "<group>"; };
 		423EDCC0148E660600D2C462 /* ofxHSBasicImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHSBasicImage.h; sourceTree = "<group>"; };
 		42603A751466ADFB00159960 /* SlideShowAppDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideShowAppDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4260DFCA14CB1A74003EAF46 /* ofxState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxState.h; sourceTree = "<group>"; };
 		4260DFCB14CB1A74003EAF46 /* ofxStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxStateMachine.h; sourceTree = "<group>"; };
-		427543D11492B0BD00922E6D /* LoadingOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingOverlay.h; sourceTree = "<group>"; };
-		427543D21492B0CA00922E6D /* LoadingOverlay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadingOverlay.cpp; sourceTree = "<group>"; };
+		4260DFCC14CB1C06003EAF46 /* GlassImagesState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlassImagesState.h; sourceTree = "<group>"; };
+		4260DFCD14CB1C7E003EAF46 /* GlassImagesState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GlassImagesState.cpp; sourceTree = "<group>"; };
 		42801849149286AE00D3311C /* guiBaseObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guiBaseObject.cpp; sourceTree = "<group>"; };
 		4280184A149286AE00D3311C /* guiBaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = guiBaseObject.h; sourceTree = "<group>"; };
 		4280184B149286AE00D3311C /* guiCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guiCallback.cpp; sourceTree = "<group>"; };
@@ -239,8 +238,13 @@
 		42801880149286AE00D3311C /* simpleFileLister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simpleFileLister.h; sourceTree = "<group>"; };
 		42801881149286AE00D3311C /* simpleLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = simpleLogger.cpp; sourceTree = "<group>"; };
 		42801882149286AE00D3311C /* simpleLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simpleLogger.h; sourceTree = "<group>"; };
-		428018A81492925400D3311C /* ofxAjaxLoadingCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAjaxLoadingCircle.h; sourceTree = "<group>"; };
-		428018AA149292DD00D3311C /* ofxAjaxLoadingCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAjaxLoadingCircle.cpp; sourceTree = "<group>"; };
+		42ABD0E314CB40F70008C661 /* HSSharedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSSharedData.h; sourceTree = "<group>"; };
+		42ABD0E514CB42810008C661 /* TitleImagesState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleImagesState.h; sourceTree = "<group>"; };
+		42ABD0E614CB434E0008C661 /* TitleImagesState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleImagesState.cpp; sourceTree = "<group>"; };
+		42ABD0E814CB5B580008C661 /* PersonImagesState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonImagesState.h; sourceTree = "<group>"; };
+		42ABD0E914CB5C380008C661 /* PersonImagesState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PersonImagesState.cpp; sourceTree = "<group>"; };
+		42ABD0F014CBD2FC0008C661 /* LoadingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingState.h; sourceTree = "<group>"; };
+		42ABD0F314CBD3BB0008C661 /* LoadingState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadingState.cpp; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -643,17 +647,20 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				422D3DA514CAB0110026B809 /* ofxHSBasicMovie.cpp */,
-				422D3DA614CAB0110026B809 /* ofxHSBasicMovie.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				423EDCBD148E65FE00D2C462 /* ofxHSBasicImage.cpp */,
 				423EDCC0148E660600D2C462 /* ofxHSBasicImage.h */,
-				428018AA149292DD00D3311C /* ofxAjaxLoadingCircle.cpp */,
-				428018A81492925400D3311C /* ofxAjaxLoadingCircle.h */,
-				427543D11492B0BD00922E6D /* LoadingOverlay.h */,
-				427543D21492B0CA00922E6D /* LoadingOverlay.cpp */,
+				4260DFCC14CB1C06003EAF46 /* GlassImagesState.h */,
+				4260DFCD14CB1C7E003EAF46 /* GlassImagesState.cpp */,
+				42ABD0E314CB40F70008C661 /* HSSharedData.h */,
+				42ABD0E514CB42810008C661 /* TitleImagesState.h */,
+				42ABD0E614CB434E0008C661 /* TitleImagesState.cpp */,
+				42ABD0E814CB5B580008C661 /* PersonImagesState.h */,
+				42ABD0E914CB5C380008C661 /* PersonImagesState.cpp */,
+				42ABD0F014CBD2FC0008C661 /* LoadingState.h */,
+				42ABD0F314CBD3BB0008C661 /* LoadingState.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -806,9 +813,10 @@
 				4280189B149286AE00D3311C /* simpleColor.cpp in Sources */,
 				4280189C149286AE00D3311C /* simpleFileLister.cpp in Sources */,
 				4280189D149286AE00D3311C /* simpleLogger.cpp in Sources */,
-				428018AB149292DD00D3311C /* ofxAjaxLoadingCircle.cpp in Sources */,
-				427543D31492B0CA00922E6D /* LoadingOverlay.cpp in Sources */,
-				422D3DA714CAB0110026B809 /* ofxHSBasicMovie.cpp in Sources */,
+				4260DFCE14CB1C7E003EAF46 /* GlassImagesState.cpp in Sources */,
+				42ABD0E714CB434E0008C661 /* TitleImagesState.cpp in Sources */,
+				42ABD0EA14CB5C380008C661 /* PersonImagesState.cpp in Sources */,
+				42ABD0F414CBD3BB0008C661 /* LoadingState.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
