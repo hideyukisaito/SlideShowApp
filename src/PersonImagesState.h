@@ -38,6 +38,7 @@ class PersonImagesState : public Apex::ofxState<HSSharedData>
         void onTimerReached(ofEventArgs &e);
         
         bool bFadeIn;
+        bool bMovieLoaded;
         bool bShowMovie;
         
         float width;
@@ -46,7 +47,6 @@ class PersonImagesState : public Apex::ofxState<HSSharedData>
         ofVideoPlayer currentMovie;
         vector<ofVideoPlayer> movies;
         vector<string> imageFilenames;
-        vector<string> movieFilenames;
         
         
         int numImages;

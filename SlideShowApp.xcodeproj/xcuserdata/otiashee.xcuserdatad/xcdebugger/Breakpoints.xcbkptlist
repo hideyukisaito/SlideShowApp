@@ -2,4 +2,62 @@
 <Bucket
    type = "1"
    version = "1.0">
+   <FileBreakpoints>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "0"
+         filePath = "/Users/otiashee/Develop/openFrameworks/of_preRelease_v007_osx/addons/ofxXmlSettings/src/ofxXmlSettings.cpp"
+         timestampString = "348948728.512081"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "344"
+         endingLineNumber = "344"
+         landmarkName = "ofxXmlSettings::writeTag(const string&amp; tag, const string&amp; valueStr, int which)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "0"
+         filePath = "/Users/otiashee/Develop/openFrameworks/of_preRelease_v007_osx/addons/ofxXmlSettings/src/ofxXmlSettings.cpp"
+         timestampString = "348948730.714069"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "347"
+         endingLineNumber = "347"
+         landmarkName = "ofxXmlSettings::writeTag(const string&amp; tag, const string&amp; valueStr, int which)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "0"
+         filePath = "/Users/otiashee/Develop/openFrameworks/of_preRelease_v007_osx/addons/ofxXmlSettings/src/ofxXmlSettings.cpp"
+         timestampString = "348948733.24395"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "367"
+         endingLineNumber = "367"
+         landmarkName = "ofxXmlSettings::writeTag(const string&amp; tag, const string&amp; valueStr, int which)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "0"
+         filePath = "/Users/otiashee/Develop/openFrameworks/of_preRelease_v007_osx/addons/ofxXmlSettings/src/ofxXmlSettings.cpp"
+         timestampString = "348950203.080153"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "372"
+         endingLineNumber = "372"
+         landmarkName = "ofxXmlSettings::writeTag(const string&amp; tag, const string&amp; valueStr, int which)"
+         landmarkType = "5">
+      </FileBreakpoint>
+   </FileBreakpoints>
 </Bucket>

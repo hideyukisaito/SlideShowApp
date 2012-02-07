@@ -59,6 +59,7 @@
 		4280189B149286AE00D3311C /* simpleColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4280187D149286AE00D3311C /* simpleColor.cpp */; };
 		4280189C149286AE00D3311C /* simpleFileLister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4280187F149286AE00D3311C /* simpleFileLister.cpp */; };
 		4280189D149286AE00D3311C /* simpleLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42801881149286AE00D3311C /* simpleLogger.cpp */; };
+		4293FD9F14D01F3300363F7F /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4293FD9D14D01E1000363F7F /* icon.icns */; };
 		42ABD0E714CB434E0008C661 /* TitleImagesState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42ABD0E614CB434E0008C661 /* TitleImagesState.cpp */; };
 		42ABD0EA14CB5C380008C661 /* PersonImagesState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42ABD0E914CB5C380008C661 /* PersonImagesState.cpp */; };
 		42ABD0F414CBD3BB0008C661 /* LoadingState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42ABD0F314CBD3BB0008C661 /* LoadingState.cpp */; };
@@ -238,6 +239,7 @@
 		42801880149286AE00D3311C /* simpleFileLister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simpleFileLister.h; sourceTree = "<group>"; };
 		42801881149286AE00D3311C /* simpleLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = simpleLogger.cpp; sourceTree = "<group>"; };
 		42801882149286AE00D3311C /* simpleLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simpleLogger.h; sourceTree = "<group>"; };
+		4293FD9D14D01E1000363F7F /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		42ABD0E314CB40F70008C661 /* HSSharedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSSharedData.h; sourceTree = "<group>"; };
 		42ABD0E514CB42810008C661 /* TitleImagesState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleImagesState.h; sourceTree = "<group>"; };
 		42ABD0E614CB434E0008C661 /* TitleImagesState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleImagesState.cpp; sourceTree = "<group>"; };
@@ -574,6 +576,14 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		4293FD9B14D01DB800363F7F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4293FD9D14D01E1000363F7F /* icon.icns */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
@@ -634,6 +644,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				4293FD9B14D01DB800363F7F /* Resources */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -685,6 +696,7 @@
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
 				E4B6FFFD0C3F9AB9008CF71C /* ShellScript */,
 				E4C2427710CC5ABF004149E2 /* CopyFiles */,
+				4293FD9E14D01E4600363F7F /* Resources */,
 			);
 			buildRules = (
 			);
@@ -739,6 +751,17 @@
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4293FD9E14D01E4600363F7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4293FD9F14D01F3300363F7F /* icon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		E4B6FFFD0C3F9AB9008CF71C /* ShellScript */ = {

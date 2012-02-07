@@ -26,7 +26,7 @@ void TitleImagesState::stateEnter()
     index = 0;
     
     ofAddListener(timer.TIMER_REACHED, this, &TitleImagesState::onTimerReached);
-    timer.setup(3000, true);
+    timer.setup(sharedData->fadeInMillisecond, true);
     timer.startTimer();
     
     initTweensForFadeIn();
@@ -64,20 +64,21 @@ void TitleImagesState::init()
         }
         config.popTag();
     }
+    
 }
 
 //--------------------------------------------------------------
 void TitleImagesState::initTweensForFadeIn()
 {
     bFadeIn = true;
-    alphaTween.setParameters(easingCirc, ofxTween::easeIn, 0, 255, 1000, 0);
+    alphaTween.setParameters(easingCirc, ofxTween::easeOut, 0, 255, sharedData->fadeInDuration, 0);
 }
 
 //--------------------------------------------------------------
 void TitleImagesState::initTweensForFadeOut()
 {
     bFadeIn = false;
-    alphaTween.setParameters(easingCirc, ofxTween::easeOut, 255, 0, 1000, 0);
+    alphaTween.setParameters(easingCirc, ofxTween::easeIn, 255, 0, sharedData->fadeOutDuration, 0);
 }
 
 //--------------------------------------------------------------
@@ -104,10 +105,12 @@ void TitleImagesState::onTimerReached(ofEventArgs &e)
 {
     if (bFadeIn)
     {
+        timer.setTimer(sharedData->fadeOutMillisecond);
         initTweensForFadeOut();
     }
     else
     {
+        timer.setTimer(sharedData->fadeInMillisecond);
         ++index;
         if (numImages == index)
         {

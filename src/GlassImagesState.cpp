@@ -26,7 +26,7 @@ void GlassImagesState::stateEnter()
     startIndex = 0;
     
     ofAddListener(timer.TIMER_REACHED, this, &GlassImagesState::onTimerReached);
-    timer.setup(3000, true);
+    timer.setup(sharedData->fadeInMillisecond, true);
     timer.startTimer();
     
     initTweensForFadeIn();
@@ -65,20 +65,20 @@ void GlassImagesState::init()
 void GlassImagesState::initTweensForFadeIn()
 {
     bFadeIn = true;
-    tween_1.setParameters(easing_1, ofxTween::easeIn, 0, 255, 700, 0);
-    tween_2.setParameters(easing_2, ofxTween::easeIn, 0, 255, 700, 250);
-    tween_3.setParameters(easing_3, ofxTween::easeIn, 0, 255, 700, 500);
-    tween_4.setParameters(easing_4, ofxTween::easeIn, 0, 255, 700, 750);
+    tween_1.setParameters(easing_1, ofxTween::easeOut, 0, 255, sharedData->fadeInDuration, 0);
+    tween_2.setParameters(easing_2, ofxTween::easeOut, 0, 255, sharedData->fadeInDuration, 250);
+    tween_3.setParameters(easing_3, ofxTween::easeOut, 0, 255, sharedData->fadeInDuration, 500);
+    tween_4.setParameters(easing_4, ofxTween::easeOut, 0, 255, sharedData->fadeInDuration, 750);
 }
 
 //--------------------------------------------------------------
 void GlassImagesState::initTweensForFadeOut()
 {
     bFadeIn = false;
-    tween_1.setParameters(easing_1, ofxTween::easeIn, 255, 0, 1300, 0);
-    tween_2.setParameters(easing_2, ofxTween::easeIn, 255, 0, 1300, 250);
-    tween_3.setParameters(easing_3, ofxTween::easeIn, 255, 0, 1300, 500);
-    tween_4.setParameters(easing_4, ofxTween::easeIn, 255, 0, 1300, 750);
+    tween_1.setParameters(easing_1, ofxTween::easeIn, 255, 0, sharedData->fadeOutDuration, 0);
+    tween_2.setParameters(easing_2, ofxTween::easeIn, 255, 0, sharedData->fadeOutDuration, 250);
+    tween_3.setParameters(easing_3, ofxTween::easeIn, 255, 0, sharedData->fadeOutDuration, 500);
+    tween_4.setParameters(easing_4, ofxTween::easeIn, 255, 0, sharedData->fadeOutDuration, 750);
 }
 
 //--------------------------------------------------------------
@@ -126,10 +126,12 @@ void GlassImagesState::onTimerReached(ofEventArgs &e)
 {
     if (bFadeIn)
     {
+        timer.setTimer(sharedData->fadeOutMillisecond);
         initTweensForFadeOut();
     }
     else
     {
+        timer.setTimer(sharedData->fadeInMillisecond);
         startIndex += 4;
         if (NUM_GLASS_IMAGES == startIndex)
         {

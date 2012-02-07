@@ -15,6 +15,10 @@ class HSSharedData
 {
     public:
         ofxXmlSettings config;
+        float fadeInDuration;
+        float fadeOutDuration;
+        float fadeInMillisecond;
+        float fadeOutMillisecond;
 };
 
 #endif

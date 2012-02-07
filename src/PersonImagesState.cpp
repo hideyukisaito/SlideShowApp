@@ -11,7 +11,38 @@
 //--------------------------------------------------------------
 PersonImagesState::PersonImagesState()
 {
-    init();
+    if (config.loadFile(ofToDataPath("SlideShowApp.xml")) && config.pushTag("IMAGE"))
+    {
+        if (!bMovieLoaded)
+        {
+            string root = config.getAttribute("MOVIES", "root", "movies/");
+            if (config.pushTag("MOVIES"))
+            {
+                numMovies = config.getNumTags("FILE_NAME");
+                movies.clear();
+                int baseIndex = numImages / numMovies;
+                
+                for (int i = 0; i < numMovies; i++)
+                {
+                    ofVideoPlayer movie;
+                    if ( movie.loadMovie(ofToDataPath(root + config.getValue("FILE_NAME", "FILE_NAME", i))) )
+                    {
+                        movies.push_back(movie);
+                    }
+                    keyIndexes.push_back(baseIndex * (i + 1));
+                }
+                
+                movieIndex = 0;
+                currentMovie = movies[0];
+                currentMovie.setLoopState(OF_LOOP_NORMAL);
+                currentMovie.play();
+                
+                config.popTag();
+            }
+        }
+        
+        config.popTag();
+    }
 }
 
 //--------------------------------------------------------------
@@ -30,7 +61,7 @@ void PersonImagesState::stateEnter()
     bShowMovie = false;
     
     ofAddListener(timer.TIMER_REACHED, this, &PersonImagesState::onTimerReached);
-    timer.setup(3000, true);
+    timer.setup(sharedData->fadeInMillisecond, true);
     timer.startTimer();
     
     initTweensForFadeIn();
@@ -52,6 +83,7 @@ void PersonImagesState::init()
         if (config.pushTag("PERSONS"))
         {
             numImages = config.getNumTags("FILE_NAME");
+            imageFilenames.clear();
             for (int i = 0; i < numImages; i++)
             {
                 imageFilenames.push_back(ofToDataPath(root + config.getValue("FILE_NAME", "FILE_NAME", i)));
@@ -64,31 +96,6 @@ void PersonImagesState::init()
             
             config.popTag();
         }
-        
-        root = config.getAttribute("MOVIES", "root", "movies/");
-        if (config.pushTag("MOVIES"))
-        {
-            numMovies = config.getNumTags("FILE_NAME");
-            int baseIndex = numImages / numMovies;
-            
-            for (int i = 0; i < numMovies; i++)
-            {
-                ofVideoPlayer movie;
-                if ( movie.loadMovie(ofToDataPath(root + config.getValue("FILE_NAME", "FILE_NAME", i))) )
-                {
-                    movies.push_back(movie);
-                }
-                keyIndexes.push_back(baseIndex * (i + 1));
-            }
-            
-            movieIndex = 0;
-            currentMovie = movies[0];
-            currentMovie.setLoopState(OF_LOOP_NORMAL);
-            currentMovie.play();
-            
-            config.popTag();
-        }
-        
         config.popTag();
     }
 }
@@ -97,14 +104,14 @@ void PersonImagesState::init()
 void PersonImagesState::initTweensForFadeIn()
 {
     bFadeIn = true;
-    alphaTween.setParameters(easingCirc, ofxTween::easeOut, 0, 255, 1000, 0);
+    alphaTween.setParameters(easingCirc, ofxTween::easeOut, 0, 255, sharedData->fadeInDuration, 0);
 }
 
 //--------------------------------------------------------------
 void PersonImagesState::initTweensForFadeOut()
 {
     bFadeIn = false;
-    alphaTween.setParameters(easingCirc, ofxTween::easeOut, 255, 0, 1000, 0);
+    alphaTween.setParameters(easingCirc, ofxTween::easeIn, 255, 0, sharedData->fadeOutDuration, 0);
 }
 
 //--------------------------------------------------------------
@@ -147,6 +154,7 @@ void PersonImagesState::onTimerReached(ofEventArgs &e)
 {
     if (bFadeIn)
     {
+        timer.setTimer(sharedData->fadeOutMillisecond);
         initTweensForFadeOut();
     }
     else
@@ -157,6 +165,7 @@ void PersonImagesState::onTimerReached(ofEventArgs &e)
         }
         else
         {
+            timer.setTimer(sharedData->fadeInMillisecond);
             if (!bShowMovie && isKeyIndex(imageIndex))
             {
                 bShowMovie = true;

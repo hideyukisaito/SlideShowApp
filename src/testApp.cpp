@@ -11,7 +11,7 @@ void testApp::setup()
     ofBackground(255);
     ofEnableSmoothing();
     ofSetFrameRate(60);
-    ofEnableSmoothing();
+    ofSetVerticalSync(true);
     
     receiver.setup(PORT);
     ofAddListener(receiver.onMessageReceived, this, &testApp::onMessageReceived);
@@ -22,6 +22,11 @@ void testApp::setup()
 //--------------------------------------------------------------
 void testApp::initStates()
 {
+    stateMachine.getSharedData().fadeInDuration = 500;
+    stateMachine.getSharedData().fadeOutDuration = 500;
+    stateMachine.getSharedData().fadeInMillisecond = 1500;
+    stateMachine.getSharedData().fadeOutMillisecond = 600;
+    
     stateMachine.addState(new TitleImagesState());
     stateMachine.addState(new PersonImagesState());
     stateMachine.addState(new GlassImagesState());
